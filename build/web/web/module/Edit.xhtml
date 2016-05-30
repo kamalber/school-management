@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditModuleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditModuleLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{moduleController.selected.intitule}" title="#{bundle.EditModuleTitle_intitule}" />
+                    <h:outputLabel value="#{bundle.EditModuleLabel_nombreHeures}" for="nombreHeures" />
+                    <h:inputText id="nombreHeures" value="#{moduleController.selected.nombreHeures}" title="#{bundle.EditModuleTitle_nombreHeures}" />
+                    <h:outputLabel value="#{bundle.EditModuleLabel_formation}" for="formation" />
+                    <h:selectOneMenu id="formation" value="#{moduleController.selected.formation}" title="#{bundle.EditModuleTitle_formation}" >
+                        <f:selectItems value="#{formationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditModuleLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{moduleController.selected.id}" title="#{bundle.EditModuleTitle_id}" />
+                </h:panelGrid>
+                <h:commandLink action="#{moduleController.update}" value="#{bundle.EditModuleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditModuleViewLink}"/>
+                <br />
+                <h:commandLink action="#{moduleController.prepareList}" value="#{bundle.EditModuleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditModuleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

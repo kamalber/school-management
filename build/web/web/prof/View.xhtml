@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProfTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProfLabel_specialite}"/>
+                    <h:outputText value="#{profController.selected.specialite}" title="#{bundle.ViewProfTitle_specialite}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_departement}"/>
+                    <h:outputText value="#{profController.selected.departement}" title="#{bundle.ViewProfTitle_departement}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_nom}"/>
+                    <h:outputText value="#{profController.selected.nom}" title="#{bundle.ViewProfTitle_nom}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_prenom}"/>
+                    <h:outputText value="#{profController.selected.prenom}" title="#{bundle.ViewProfTitle_prenom}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_login}"/>
+                    <h:outputText value="#{profController.selected.login}" title="#{bundle.ViewProfTitle_login}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_password}"/>
+                    <h:outputText value="#{profController.selected.password}" title="#{bundle.ViewProfTitle_password}"/>
+                    <h:outputText value="#{bundle.ViewProfLabel_id}"/>
+                    <h:outputText value="#{profController.selected.id}" title="#{bundle.ViewProfTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{profController.destroyAndView}" value="#{bundle.ViewProfDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewProfEditLink}"/>
+                <br />
+                <h:commandLink action="#{profController.prepareCreate}" value="#{bundle.ViewProfCreateLink}" />
+                <br />
+                <h:commandLink action="#{profController.prepareList}" value="#{bundle.ViewProfShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewProfIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

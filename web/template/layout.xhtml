@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <ui:insert name="title" >
+            <title>Bootstrap Admin Theme v3</title>
+        </ui:insert>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <!-- Bootstrap -->
+        <h:outputStylesheet name="bootstrap/css/bootstrap.min.css"  > </h:outputStylesheet>  
+        <h:outputStylesheet name="styles.css" library="css" > </h:outputStylesheet>
+       
+        
+        <ui:insert name="contentCss">
+        <!--        put page content css in this place                -->    
+        </ui:insert>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </h:head>
+
+    <h:body>
+
+        <div id="page">
+
+            <div id="header">
+                <ui:insert name="header" >
+                    <ui:include src="header.xhtml" />
+                </ui:insert>
+            </div>
+
+            <div class="page-content">
+
+                <div class="row">
+                    <div id="nave">
+                        <ui:insert name="nave">
+                            <ui:include src="nave.xhtml" />
+                        </ui:insert>
+                    </div>
+                    <div id="content">
+                        <ui:insert name="content" >
+                            <ui:include src="content.xhtml" />
+                        </ui:insert>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="footer">
+            <ui:insert name="footer" >
+                <ui:include src="footer.xhtml" />
+            </ui:insert>
+        </div>
+
+        <h:outputScript name="js/jQuery-2.1.3.min.js" ></h:outputScript>
+        <h:outputScript  name="bootstrap/js/bootstrap.min.js" ></h:outputScript>
+        <h:outputScript  name="js/custom.js" ></h:outputScript>
+
+       
+            <ui:insert name="contentScripts" >
+<!--                 put script in this place         -->
+            </ui:insert>
+      
+    </h:body>
+
+</html>
