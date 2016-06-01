@@ -13,6 +13,8 @@
         <!-- Bootstrap -->
         <h:outputStylesheet name="bootstrap/css/bootstrap.min.css"  > </h:outputStylesheet>  
         <h:outputStylesheet name="styles.css" library="css" > </h:outputStylesheet>
+        <h:outputStylesheet name="vendors/datetimepicker-master/jquery.datetimepicker.css" > </h:outputStylesheet>
+        <h:outputStylesheet name="vendors/datetimepicker-master/jquery.dateweekpicker.css" > </h:outputStylesheet>
        
         
         <ui:insert name="contentCss">
@@ -68,8 +70,17 @@
         <h:outputScript name="js/jQuery-2.1.3.min.js" ></h:outputScript>
         <h:outputScript  name="bootstrap/js/bootstrap.min.js" ></h:outputScript>
         <h:outputScript  name="js/custom.js" ></h:outputScript>
+        <h:outputScript  name="vendors/datetimepicker-master/jquery.datetimepicker.js" ></h:outputScript>
+        <h:outputScript  name="vendors/datetimepicker-master/jquery.dateweekpicker.js" ></h:outputScript>
+        <script type="text/javascript">
+             jQuery('#datepicker,#datetimepicker').datetimepicker({
+                    lang: 'fr',
+                    timepicker: true,
+                    format: 'd-m-Y H:i',
+                    dayOfWeekStart: 1
 
-       
+            });   
+        </script>
             <ui:insert name="contentScripts" >
 <!--                 put script in this place         -->
             </ui:insert>
