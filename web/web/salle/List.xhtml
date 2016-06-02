@@ -28,6 +28,24 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSalleTitle_nbr_place}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbr_place}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSalleTitle_departement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.departement}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSalleTitle_numero}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numero}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{salleController.prepareView}" value="#{bundle.ListSalleViewLink}"/>

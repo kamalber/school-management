@@ -1,11 +1,16 @@
 package controller;
 
 import bean.Reservation;
+import bean.Reservation.ReservationType;
+import bean.Salle;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
 import dao.ReservationFacade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -24,12 +29,50 @@ public class ReservationController implements Serializable {
 
     private Reservation current;
     private DataModel items = null;
+    private Salle currentSalle;
+    private String typeReservation;
+    private  String dateDebut;
+    private String dateFin;
+    
     @EJB
     private dao.ReservationFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    public Salle getCurrentSalle() {
+        return currentSalle;
+    }
+
+    public String getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public String getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(String DateFin) {
+        this.dateFin = DateFin;
+    }
+
+    public String getTypeReservation() {
+        return typeReservation;
+    }
+
+    public void setTypeReservation(String typeReservation) {
+        this.typeReservation = typeReservation;
+    }
+
+    public void setCurrentSalle(Salle currentSalle) {
+        this.currentSalle = currentSalle;
+    }
+
     public ReservationController() {
+        currentSalle=new Salle();
     }
 
     public Reservation getSelected() {
@@ -80,7 +123,11 @@ public class ReservationController implements Serializable {
     }
 
     public String create() {
-        try {
+        try {    
+            current.setStartDate(Timestamp.valueOf(dateDebut+":21.0"));
+            current.setEndDate(Timestamp.valueOf(dateFin+":21.0"));
+            current.setType(ReservationType.valueOf(typeReservation));
+            current.getSalle().add(currentSalle);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReservationCreated"));
             return prepareCreate();

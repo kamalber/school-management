@@ -19,6 +19,7 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 @Named("secretaireController")
+@SessionScoped
 public class SecretaireController implements Serializable {
 
     private Secretaire current;

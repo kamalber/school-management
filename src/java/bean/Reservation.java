@@ -72,8 +72,8 @@ public class Reservation implements Serializable {
         return type;
     }
 
-    public void setType(ReservationType type) {
-        this.type = type;
+    public void setType(ReservationType  StrType) {
+        this.type =  StrType;
     }
 
     public Module getModule() {
@@ -89,7 +89,7 @@ public class Reservation implements Serializable {
     }
 
     public void setSalle(List<Salle> salle) {
-        this.salle = salle;
+        this.salle= salle;
     }
 
     public Reservation() {

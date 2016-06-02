@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -21,7 +22,6 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Salle implements Serializable {
 
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,12 +29,24 @@ public class Salle implements Serializable {
     private String Numero;
     @ManyToMany(mappedBy = "salle")
     private List<Reservation> reservations = new ArrayList<>();
+    private int Nbr_place;
+    @ManyToOne
+    Departement departement = new Departement();
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public int getNbr_place() {
+        return Nbr_place;
+    }
+
+    public void setNbr_place(int Nbr_place) {
+        this.Nbr_place = Nbr_place;
     }
 
     @Override
@@ -57,9 +69,33 @@ public class Salle implements Serializable {
         return true;
     }
 
+    public Departement getDepartement() {
+        return departement;
+    }
+
+    public void setDepartement(Departement departement) {
+        this.departement = departement;
+    }
+
+    public String getNumero() {
+        return Numero;
+    }
+
+    public void setNumero(String Numero) {
+        this.Numero = Numero;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @Override
     public String toString() {
-        return "bean.Sale[ id=" + id + " ]";
+        return "Numero = " + Numero + ", departement = " + departement.getNom() ;
     }
 
 }

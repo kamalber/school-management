@@ -15,10 +15,11 @@
         <h:outputStylesheet name="styles.css" library="css" > </h:outputStylesheet>
         <h:outputStylesheet name="vendors/datetimepicker-master/jquery.datetimepicker.css" > </h:outputStylesheet>
         <h:outputStylesheet name="vendors/datetimepicker-master/jquery.dateweekpicker.css" > </h:outputStylesheet>
-       
-        
+        <h:outputStylesheet name="vendors/datatables/dataTables.bootstrap.css" > </h:outputStylesheet>
+
+
         <ui:insert name="contentCss">
-        <!--        put page content css in this place                -->    
+            <!--        put page content css in this place                -->    
         </ui:insert>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -72,19 +73,34 @@
         <h:outputScript  name="js/custom.js" ></h:outputScript>
         <h:outputScript  name="vendors/datetimepicker-master/jquery.datetimepicker.js" ></h:outputScript>
         <h:outputScript  name="vendors/datetimepicker-master/jquery.dateweekpicker.js" ></h:outputScript>
-        <script type="text/javascript">
-             jQuery('#datepicker,#datetimepicker').datetimepicker({
-                    lang: 'fr',
-                    timepicker: true,
-                    format: 'd-m-Y H:i',
-                    dayOfWeekStart: 1
+        <h:outputScript  name="vendors/datatables/js/jquery.dataTables.min.js" ></h:outputScript>
+        <h:outputScript  name="vendors/datatables/dataTables.bootstrap.js" ></h:outputScript>
 
-            });   
+
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.example').DataTable();
+            });
+            jQuery('.startDate_1').datetimepicker({
+                lang: 'fr',
+                timepicker: true,
+                format: 'Y-m-d H:i',
+                dayOfWeekStart: 1
+
+            });
+            jQuery('.endDate_1').datetimepicker({
+                lang: 'fr',
+                timepicker: true,
+                format: 'Y-m-d H:i',
+                dayOfWeekStart: 1,
+            });
         </script>
-            <ui:insert name="contentScripts" >
-<!--                 put script in this place         -->
-            </ui:insert>
-      
+        <ui:insert name="contentScripts" >
+            <!--                 put script in this place         -->
+        </ui:insert>
+
     </h:body>
 
 </html>

@@ -33,6 +33,8 @@ public class Departement implements Serializable {
     private List<Prof> profs= new ArrayList<>();
     @OneToOne(mappedBy = "depratement")
     private Secretaire secretaire ;
+    @OneToMany(mappedBy = "departement")
+    private List<Salle> salles=new ArrayList<>();
  
 
     public Departement() {
@@ -60,6 +62,30 @@ public class Departement implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<Prof> getProfs() {
+        return profs;
+    }
+
+    public void setProfs(List<Prof> profs) {
+        this.profs = profs;
+    }
+
+    public Secretaire getSecretaire() {
+        return secretaire;
+    }
+
+    public void setSecretaire(Secretaire secretaire) {
+        this.secretaire = secretaire;
+    }
+
+    public List<Salle> getSalles() {
+        return salles;
+    }
+
+    public void setSalles(List<Salle> salles) {
+        this.salles = salles;
     }
 
     @Override

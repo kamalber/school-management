@@ -17,6 +17,14 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditSalleLabel_id}" for="id" />
                     <h:inputText id="id" value="#{salleController.selected.id}" title="#{bundle.EditSalleTitle_id}" />
+                    <h:outputLabel value="#{bundle.EditSalleLabel_nbr_place}" for="nbr_place" />
+                    <h:inputText id="nbr_place" value="#{salleController.selected.nbr_place}" title="#{bundle.EditSalleTitle_nbr_place}" />
+                    <h:outputLabel value="#{bundle.EditSalleLabel_departement}" for="departement" />
+                    <h:selectOneMenu id="departement" value="#{salleController.selected.departement}" title="#{bundle.EditSalleTitle_departement}" >
+                        <f:selectItems value="#{departementController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditSalleLabel_numero}" for="numero" />
+                    <h:inputText id="numero" value="#{salleController.selected.numero}" title="#{bundle.EditSalleTitle_numero}" />
                 </h:panelGrid>
                 <h:commandLink action="#{salleController.update}" value="#{bundle.EditSalleSaveLink}"/>
                 <br />

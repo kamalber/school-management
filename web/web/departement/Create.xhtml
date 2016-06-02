@@ -19,6 +19,10 @@
                     <h:inputText id="nom" value="#{departementController.selected.nom}" title="#{bundle.CreateDepartementTitle_nom}" />
                     <h:outputLabel value="#{bundle.CreateDepartementLabel_id}" for="id" />
                     <h:inputText id="id" value="#{departementController.selected.id}" title="#{bundle.CreateDepartementTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateDepartementLabel_secretaire}" for="secretaire" />
+                    <h:selectOneMenu id="secretaire" value="#{departementController.selected.secretaire}" title="#{bundle.CreateDepartementTitle_secretaire}" >
+                        <f:selectItems value="#{secretaireController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{departementController.create}" value="#{bundle.CreateDepartementSaveLink}" />

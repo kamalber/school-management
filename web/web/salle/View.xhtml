@@ -17,6 +17,12 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewSalleLabel_id}"/>
                     <h:outputText value="#{salleController.selected.id}" title="#{bundle.ViewSalleTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewSalleLabel_nbr_place}"/>
+                    <h:outputText value="#{salleController.selected.nbr_place}" title="#{bundle.ViewSalleTitle_nbr_place}"/>
+                    <h:outputText value="#{bundle.ViewSalleLabel_departement}"/>
+                    <h:outputText value="#{salleController.selected.departement}" title="#{bundle.ViewSalleTitle_departement}"/>
+                    <h:outputText value="#{bundle.ViewSalleLabel_numero}"/>
+                    <h:outputText value="#{salleController.selected.numero}" title="#{bundle.ViewSalleTitle_numero}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{salleController.destroyAndView}" value="#{bundle.ViewSalleDestroyLink}"/>
