@@ -1,0 +1,150 @@
+
+
+.Deja_Venu_rdv .fc-event-inner {
+    background : #EA44F6;
+}
+
+.Jamais_venu_rdv .fc-event-inner {
+    background : #B349CE;
+}
+
+.enfant_rdv .fc-event-inner {
+    background : #F9A41E;
+}
+
+.Bebe_rdv .fc-event-inner {
+    background : #F5A6BF;
+}
+
+.Renouvllement_ordonnance_rdv .fc-event-inner {
+    background : #9A5315;
+}
+.Autre_motif_rdv .fc-event-inner {
+    background : #005A4E;
+}
+.Bilan_de_sante_rdv .fc-event-inner {
+    background : #B78178;
+}
+.Certificat_medical_rdv .fc-event-inner {
+    background : #ABC8E2;
+}
+.Vaccin_rdv .fc-event-inner {
+    background : #C79F4B;
+}
+
+.Fatigue_rdv .fc-event-inner {
+    background : #F2E783;
+}
+.Rv_professionnel_rdv .fc-event-inner {
+    background : #A4061B;
+}
+
+
+/*** Délimiteurs types ***/
+.Conges_delimiteur .fc-event-inner {
+
+    background : repeating-linear-gradient(
+        45deg,
+        #1E7FCB,
+        #1E7FCB 10px,
+        #000000 10px,
+        #000000 20px
+        );
+}
+
+.Absent_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #FFFF00,
+        #FFFF00 10px,
+        #000000 10px,
+        #000000 20px
+        );
+
+}
+
+.Urgence_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #FF0000,
+        #FF0000 10px,
+        #000000 10px,
+        #000000 20px
+        );
+}
+
+.Reserve_praticien_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #CFA0E9,
+        #CFA0E9 10px,
+        #000000 10px,
+        #000000 20px
+        );
+}
+
+.Indisponible_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #90EE90,
+        #90EE90 10px,
+        #000000 10px,
+        #000000 20px
+        );   
+}
+
+.Internet_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #40b000,
+        #40b000 10px,
+        #000000 10px,
+        #000000 20px
+        ); 
+}
+
+.Remplacant_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #26C4EC,
+        #26C4EC 10px,
+        #000000 10px,
+        #000000 20px
+        ); 
+} 
+
+.Pause_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #EF597B,
+        #EF597B 10px,
+        #000000 10px,
+        #000000 20px
+        );
+} 
+
+.Non_ouvrable_delimiteur .fc-event-inner {
+    background: repeating-linear-gradient(
+        45deg,
+        #262626,
+        #262626 10px,
+        #000000 10px,
+        #000000 20px
+        );
+
+} 
+
+.CC{
+    background : #FF0000;
+}
+
+.TD{
+    background : #90EE90;
+}
+.COURS{
+    background : #26C4EC;
+}
+.TP{
+    background : #F9A41E;
+}
+

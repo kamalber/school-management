@@ -6,9 +6,9 @@
 package bean;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -28,12 +29,14 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date startDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date endDate;
     private String description;
     private ReservationType type;
     @ManyToOne
-    private Module module =new Module();
+    private Module module = new Module();
     @ManyToMany
     private List<Salle> salle = new ArrayList<>();
 
@@ -42,23 +45,21 @@ public class Reservation implements Serializable {
         CC, TD, COURS, TP
     }
 
-    public Timestamp getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Timestamp getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Timestamp endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
-
 
     public String getDescription() {
         return description;
@@ -72,8 +73,8 @@ public class Reservation implements Serializable {
         return type;
     }
 
-    public void setType(ReservationType  StrType) {
-        this.type =  StrType;
+    public void setType(ReservationType StrType) {
+        this.type = StrType;
     }
 
     public Module getModule() {
@@ -89,7 +90,7 @@ public class Reservation implements Serializable {
     }
 
     public void setSalle(List<Salle> salle) {
-        this.salle= salle;
+        this.salle = salle;
     }
 
     public Reservation() {
