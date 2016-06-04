@@ -381,7 +381,7 @@ public class ReservationController implements Serializable {
             scheduleEvent.setTitle(res.getDescription());
             scheduleEvent.setStartDate(res.getStartDate());
             scheduleEvent.setEndDate(res.getEndDate());
-            scheduleEvent.setStyleClass("CC");
+            scheduleEvent.setStyleClass("TD");
             scheduleEvent.setData(res);
             eventModel.addEvent(scheduleEvent);
         }

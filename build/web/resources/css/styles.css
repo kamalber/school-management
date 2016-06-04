@@ -580,6 +580,22 @@ body {
     clear:both;
 }
 
+
+
+
+.CC .fc-event-skin {
+    background : #FF0000;
+}
+
+.TD .fc-event-skin {
+    background : #90EE90;
+}
+.COURS .fc-event-skin {
+    background : #26C4EC;
+}
+.TP .fc-event-skin {
+    background : #F9A41E;
+}
 /* Responsive CSS */
 
 /* Mobile phones */
@@ -649,6 +665,6 @@ body {
         box-shadow:0px 0px 1px #0fa6bc;
         border-radius:10px;
     }  
-    
-   
+
+
 }

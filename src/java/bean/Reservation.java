@@ -34,6 +34,7 @@ public class Reservation implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date endDate;
     private String description;
+    private String color;
     private ReservationType type;
     @ManyToOne
     private Module module = new Module();
@@ -47,6 +48,14 @@ public class Reservation implements Serializable {
 
     public Date getStartDate() {
         return startDate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setStartDate(Date startDate) {
