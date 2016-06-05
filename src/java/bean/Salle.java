@@ -95,7 +95,7 @@ public class Salle implements Serializable {
 
     @Override
     public String toString() {
-        return "Numero = " + Numero + ", departement = " + departement.getNom() ;
+        return "Numero = " + Numero + ", departement = " + departement.getNom() +", nbr palce = "+Nbr_place;
     }
 
 }

@@ -13,7 +13,7 @@
         <ui:define name="content">  
 
             <div class=""></div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div class="content-box-header">
                     <div class="panel-title center">Calendrier </div>
 
@@ -29,11 +29,12 @@
                         <p:growl id="messages" showDetail="true" />
 
                         <h:panelGrid columnClasses="value">
-                            <h3 style="margin-top: 0">reservation  calendrier</h3>
-                            <p:schedule id="schedule"   resizable="true" locale="fr" value="#{reservationController.eventModel}"  widgetVar="myschedule" timeZone="GMT+2">
-
+                            <h3 style="margin-top: 0">Réservation  calendrier</h3>
+                            <p:schedule  id="schedule"    value="#{reservationController.eventModel}" widgetVar="myschedule" timeZone="GMT+2" 
+                                         resizable="true"  slotMinutes="15" firstHour="8" locale="fr" timeFormat="HH:mm" axisFormat="HH:mm" 
+                                         view="agendaWeek" minTime="8" maxTime="18" >
                                 <p:ajax event="dateSelect" listener="#{reservationController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
-                                <p:ajax event="eventSelect" listener="#{reservationController.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                <p:ajax event="eventSelect" listener="#{reservationController.onEventSelect}" update="eventDetails,eventDetailsActions" oncomplete="PF('eventDialogActions').show();" />
                                 <p:ajax event="eventMove" listener="#{reservationController.onEventMove}" update="messages" />
                                 <p:ajax event="eventResize" listener="#{reservationController.onEventResize}" update="messages" />
 
@@ -42,7 +43,7 @@
 
                         </h:panelGrid>
 
-                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                        <p:dialog widgetVar="eventDialog" header="Réservation " showEffect="clip" hideEffect="clip">
                             <h:panelGroup class="row"   id="eventDetails" >
 
                                 <div class="col-md">
@@ -91,13 +92,7 @@
                                                     <h:selectOneMenu id="salle" class="form-control"  required="true" value="#{reservationController.currentSalle}" title="#{bundle.CreateReservationTitle_salle}" >
                                                         <f:selectItems  value="#{salleController.itemsAvailableSelectOne}"/>
                                                     </h:selectOneMenu>
-                                                </div></div>
-                                            <div class="form-group">
-                                                <h:outputLabel value="coleur" for="color"  class="col-sm-2 control-label" ></h:outputLabel>
-                                                <div class="col-sm-10">
-                                               
-                                                    <p:colorPicker  value="#{reservationController.selected.color}"  required="true" styleClass="form-control" class="col-md-4"  ></p:colorPicker>
-                                                </div></div>
+                                                </div></div>                
                                             <div class="form-group center-block center">
                                                 <div class="row-fluid center-block">
                                                     <div class="span4 offset4 text-center">
@@ -105,39 +100,83 @@
 
                                                         <p:commandButton type="reset" value="Reset" />
                                                         <div class="col-lg-1"></div>
-                                                        <p:commandButton id="addButton" value="Save" actionListener="#{reservationController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />                                                    
+                                                        <p:commandButton id="addButton" value="save" actionListener="#{reservationController.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />                                                    
                                                     </div>
                                                 </div></div>
                                         </div></div></div></h:panelGroup>
-                        </p:dialog>    
-                        
+                        </p:dialog>
+
+                        <p:dialog widgetVar="eventDialogActions" header="actions" showEffect="clip" hideEffect="clip">
+                            <h:panelGroup class="row"  id="eventDetailsActions" >
+
+
+                                <div class="col-md">
+                                    <div class="content-box-large center center-block">
+                                        <div class="tab-content form-horizontal center center-block">
+
+                                            <div class="form-group">
+                                                <h:outputLabel value="titre"  class="col-sm-2 control-label" for="titre" ></h:outputLabel>
+                                                <div class="col-sm-10">
+                                                    <h:outputLabel id="titre" value="#{reservationController.event.title}" class="form-control"></h:outputLabel>
+                                                </div></div>
+                                            <div class="form-group">
+                                                <h:outputLabel value="#{bundle.CreateReservationLabel_startDate}"   class="col-sm-2 control-label" for="startDate"  ></h:outputLabel>
+                                                <div class="col-sm-10">		
+                                                    <h:outputLabel value="#{reservationController.event.startDate}" class="form-control"></h:outputLabel>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:outputLabel value="#{bundle.CreateReservationLabel_endDate}"  class="col-sm-2 control-label" for="endDate"  ></h:outputLabel>
+                                                <div class="col-sm-10">	
+                                                    <h:outputLabel value="#{reservationController.event.endDate}" class="form-control"></h:outputLabel>
+
+                                                </div>
+                                            </div>
+
+                                        </div></div></div>
+
+                            </h:panelGroup>
+                            <h:panelGrid columns="4">  
+                                <p:commandButton id="update"  icon="ui-icon-disk"   value="Modifier" styleClass="btn btn-info" oncomplete="PF('eventDialogActions').hide();PF('eventDialog').show()" ></p:commandButton>
+                                <p:commandButton id="delete" icon="ui-icon-star"   value="Supprimer" action="#{reservationController.delete()}" oncomplete="PF('eventDialogActions').hide()"  styleClass="btn btn-default"  ></p:commandButton>
+                                <p:commandButton id="cancel" icon="ui-icon-cancel"  value="Annuler" actionListener="#{reservationController.annuler()}" oncomplete="PF('eventDialogActions').hide()" styleClass="btn btn-google-plus"  ></p:commandButton>
+
+                            </h:panelGrid>
+
+                        </p:dialog>
+
                         <!-- #############       update panel                 "#####################-->
-                        
+
                     </h:form>
 
                     <script type="text/javascript">
 
-                        PrimeFaces.locales['fr'] = {
-                            closeText: 'kapat',
-                            prevText: 'geri',
-                            nextText: 'ileri',
-                            currentText: "Aujourd'hui",
-                            monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin',
-                                'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
-                            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui',
-                                'Jui', 'Auo', 'Sep', 'Oct', 'Nov', 'Dec'],
-                            dayNames: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-                            dayNamesShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                            dayNamesMin: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                            weekHeader: 'Hf',
-                            firstDay: 7,
+                        PrimeFaces.locales ['fr'] = {
+                            closeText: 'Fermer',
+                            prevText: 'Précédent',
+                            nextText: 'Suivant',
+                            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+                            monthNamesShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+                            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+                            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                            weekHeader: 'Semaine',
+                            firstDay: 1,
                             isRTL: false,
                             showMonthAfterYear: false,
                             yearSuffix: '',
+                            timeOnlyTitle: 'Choisir l\'heure',
+                            timeText: 'Heure',
+                            hourText: 'Heures',
+                            minuteText: 'Minutes',
+                            secondText: 'Secondes',
+                            currentText: 'Maintenant',
+                            ampm: false,
                             month: 'Mois',
                             week: 'Semaine',
                             day: 'Jour',
-                            allDayText: 'Tout les jours'
+                            allDayText: 'Toute la journée'
                         };
 
                     </script>

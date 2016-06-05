@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -55,13 +55,16 @@ public class ReservationController implements Serializable {
     private ScheduleModel lazyEventModel;
 
     private ScheduleEvent event = new DefaultScheduleEvent();
-
+    List<Reservation> reservations = null;
     @EJB
     private dao.ReservationFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     // calendar events 
+    public void deletEvent(ActionEvent actionEvent){
+        delete();
+    }
     public void addEvent(ActionEvent actionEvent) {
         System.out.println("controller.ReservationController.addEvent() 1");
         if (event.getId() == null) {
@@ -80,8 +83,23 @@ public class ReservationController implements Serializable {
 
             }
 
-        } else {
-            eventModel.updateEvent(event);
+        } else { // update event and reservation on the DB
+            Reservation updatedOn = new Reservation();
+            updatedOn = (Reservation) event.getData();
+//            current.setId(updatedOn.getId());
+            current.setEndDate(event.getEndDate());
+            current.setStartDate(event.getStartDate());
+            current.setType(ReservationType.valueOf(typeReservation));
+            current.setDescription(event.getTitle());
+            current.getSalle().clear();
+            current.getSalle().add(currentSalle);
+            try {
+                getFacade().edit(current);
+                eventModel.updateEvent(event);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+
         }
 
         event = new DefaultScheduleEvent();
@@ -103,10 +121,12 @@ public class ReservationController implements Serializable {
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
+        event = null;
         event = (ScheduleEvent) selectEvent.getObject();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
+        event=null;
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
@@ -206,21 +226,22 @@ public class ReservationController implements Serializable {
     public String prepareCreate() {
         current = new Reservation();
         if (event.getStartDate() != null && event.getEndDate() != null) {
-            current.setStartDate(event.getStartDate());
-            current.setEndDate(event.getEndDate());
+
         }
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
+
         try {
-            current.setStartDate(Timestamp.valueOf(dateDebut + ":21.0"));
-            current.setEndDate(Timestamp.valueOf(dateFin + ":21.0"));
+            current.setStartDate(new Date(dateDebut));
+            current.setEndDate(new Date(dateFin));
             current.setType(ReservationType.valueOf(typeReservation));
             current.getSalle().add(currentSalle);
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReservationCreated"));
+            init();
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -252,6 +273,20 @@ public class ReservationController implements Serializable {
         recreatePagination();
         recreateModel();
         return "List";
+    }
+
+    public void delete() {
+        System.out.println("delet");
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).getId() == current.getId()) {
+                eventModel.deleteEvent(event);
+            }
+        }
+
+    }
+    public void annuler(){
+        current=new Reservation();
+        event= new DefaultScheduleEvent();
     }
 
     public String destroyAndView() {
@@ -372,11 +407,11 @@ public class ReservationController implements Serializable {
 
     @PostConstruct
     public void init() {
-        List<Reservation> reservations = ejbFacade.findAll();
+        reservations = ejbFacade.findAll();
         eventModel = new DefaultScheduleModel();
-        
-        for(Reservation res:reservations){
-            DefaultScheduleEvent scheduleEvent= new DefaultScheduleEvent();
+
+        for (Reservation res : reservations) {
+            DefaultScheduleEvent scheduleEvent = new DefaultScheduleEvent();
             scheduleEvent.setDescription(res.getDescription());
             scheduleEvent.setTitle(res.getDescription());
             scheduleEvent.setStartDate(res.getStartDate());
@@ -531,4 +566,32 @@ public class ReservationController implements Serializable {
         }
     }
 
+    public void goCalendar() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/faces/web/calendar/Calendar.xhtml");
+
+    }
+
+    public String dateDebutConverter() {
+        Date date = event.getStartDate();
+        String l = "";
+        if (date != null) {
+            SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatHoure = new SimpleDateFormat("HH:mm");
+
+            l = "Le  " + formatDay.format(date) + " à " + formatHoure.format(date);
+        }
+        return l;
+    }
+
+    public String dateFinConverter() {
+        Date date1 = event.getEndDate();
+        String l = "";
+        if (date1 != null) {
+            SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatHoure = new SimpleDateFormat("HH:mm");
+            l = "Le  " + formatDay.format(date1) + " à " + formatHoure.format(date1);
+        }
+        return l;
+    }
 }

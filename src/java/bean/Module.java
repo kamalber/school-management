@@ -98,7 +98,7 @@ public class Module implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Module[ id=" + id + " ]";
+        return "intitule : "+intitule +" ,  formation : "+formation.getNom();
     }
 
 }

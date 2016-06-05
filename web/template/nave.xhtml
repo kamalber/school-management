@@ -3,98 +3,100 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-  
-    
-    
+
+
+
     <h:body>
-        
+
         <ui:composition>
 
-	  <div class="col-md-3">
-		  	<div class="sidebar content-box" style="display: block;">
-                <ul class="nav">
-                    <!-- Main menu -->
-                 <!--   <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
-                    <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Calendar</a></li>-->
-                    <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
-                   <!-- <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Tables</a></li>
-                    <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Buttons</a></li>
-                    <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> Editors</a></li>
-                    <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Forms</a></li>-->
-                    <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> Pages
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="signup.html">Signup</a></li>
-                        </ul>
-                    </li>
-                      <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> gestion des reservations
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li><h:link outcome="/web/reservation/Create" value="Ajouter une reservation"/></li>
-                            <li><h:link outcome="/web/reservation/List" value="Liste des reservation"/></li>
-                        </ul>
-                    </li>
+            <div class="col-md-2">
+                    <div class="content-box-header">
+                    <div class="panel-title center">Menu </div>
+
+                </div>
+                <div class="sidebar content-box" style="display: block;">
+                    <ul class="nav">
+                        <!-- Main menu -->
+                        <!--   <li class="current"><a href="index.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+                           <li><a href="calendar.html"><i class="glyphicon glyphicon-calendar"></i> Calendar</a></li>-->
+                        <li><a href="stats.html"><i class="glyphicon glyphicon-stats"></i> Statistics (Charts)</a></li>
+                        <!-- <li><a href="tables.html"><i class="glyphicon glyphicon-list"></i> Tables</a></li>
+                         <li><a href="buttons.html"><i class="glyphicon glyphicon-record"></i> Buttons</a></li>
+                         <li><a href="editors.html"><i class="glyphicon glyphicon-pencil"></i> Editors</a></li>
+                         <li><a href="forms.html"><i class="glyphicon glyphicon-tasks"></i> Forms</a></li>-->
+                        <li class="" > 
+
+                            <h:link outcome="/web/calendar/Calendar" value="Calendrier" class="icon-calendar">
+
+                            </h:link>
+
+
+                        </li> 
                    
-                    <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> gestion des salles
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
-                            <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
-                        </ul>
-                    </li>
-                   
-                   <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> gestion des formations
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
-                            <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
-                        </ul>
-                    </li>
-                   
-                   <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> gestion des utilisateur
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
-                            <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
-                        </ul>
-                    </li>
-                   
-                   <li class="submenu">
-                         <a href="#">
-                            <i class="glyphicon glyphicon-list"></i> gestion des departement
-                            <span class="caret pull-right"></span>
-                         </a>
-                         <!-- Sub menu -->
-                         <ul>
-                            <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
-                            <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
-                        </ul>
-                    </li>
-                </ul>
-             </div>
-		  </div>
-       
+                        <li class="submenu">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list"></i>G. reservations
+                                <span class="caret pull-right"></span>
+                            </a>
+                            <!-- Sub menu -->
+                            <ul>
+                                <li><h:link outcome="/web/reservation/Create" value="Ajouter une reservation"/></li>
+                                <li><h:link outcome="/web/reservation/List" value="Liste des reservation"/></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list"></i>G. salles
+                                <span class="caret pull-right"></span>
+                            </a>
+                            <!-- Sub menu -->
+                            <ul>
+                                <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
+                                <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list"></i>G. formations
+                                <span class="caret pull-right"></span>
+                            </a>
+                            <!-- Sub menu -->
+                            <ul>
+                                <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
+                                <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list"></i>G. utilisateur
+                                <span class="caret pull-right"></span>
+                            </a>
+                            <!-- Sub menu -->
+                            <ul>
+                                <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
+                                <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
+                            </ul>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-list"></i>G. departement
+                                <span class="caret pull-right"></span>
+                            </a>
+                            <!-- Sub menu -->
+                            <ul>
+                                <li> <h:link outcome="/web/salle/Create" value="Ajouter une salle"/></li>
+                                <li> <h:link outcome="/web/salle/List" value="Liste des salles"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </ui:composition>
     </h:body>
 </html>

@@ -10,9 +10,9 @@
       
                     <ui:define name="content">
             <div class=""></div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="content-box-header">
-                    <div class="panel-title center">Ajouter une reservation</div>
+                    <div class="panel-title center">Liste des reservations</div>
 
                     <div class="panel-options">
                         <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
@@ -59,7 +59,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListReservationTitle_module}"/>
                             </f:facet>
-                            <h:outputText value="#{item.module}"/>
+                            <h:outputText value="#{item.module.intitule}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -71,16 +71,15 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{reservationController.prepareView}" value="#{bundle.ListReservationViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{reservationController.prepareEdit}" value="#{bundle.ListReservationEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{reservationController.destroy}" value="#{bundle.ListReservationDestroyLink}"/>
+                            <h:commandLink action="#{reservationController.prepareEdit}" value="" ><span class="glyphicon glyphicon-edit "></span> </h:commandLink>
+                            <h:outputText value=" _  "/> 
+                           <h:commandLink action="#{reservationController.destroy}"><span class="glyphicon glyphicon-trash "></span> </h:commandLink>
+
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{reservationController.prepareCreate}" value="#{bundle.ListReservationCreateLink}"/>
+                <h:commandLink action="#{reservationController.prepareCreate}" value=" ajouter une nouvelle reservation"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListReservationIndexLink}"/>

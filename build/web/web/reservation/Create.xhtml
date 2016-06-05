@@ -13,9 +13,9 @@
 
         <ui:define name="content">
             <div class=""></div>
-            <div class="col-md-9">
+            <div class="col-md-8 ">
                 <div class="content-box-header">
-                    <div class="panel-title center">Ajouter une reservation</div>
+                    <div class="panel-title center">Ajouter une Réservation </div>
 
                     <div class="panel-options">
                         <a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
@@ -33,14 +33,14 @@
                         <div class="form-group">
                             <h:outputLabel value="#{bundle.CreateReservationLabel_startDate}"   class="col-sm-2 control-label" for="startDate" ></h:outputLabel>
                             <div class="col-sm-8">		
-                                <h:inputText  id="startDate" value="#{reservationController.event.startDate}"  class="startDate_1 form-control" title="#{bundle.CreateReservationTitle_startDate}">
+                                <h:inputText  id="startDate" value="#{reservationController.dateDebut}"  class="startDate_1 form-control" title="#{bundle.CreateReservationTitle_startDate}">
                                 </h:inputText>
                             </div>
                         </div>
                         <div class="form-group">
                             <h:outputLabel value="#{bundle.CreateReservationLabel_endDate}"  class="col-sm-2 control-label" for="endDate"  ></h:outputLabel>
                             <div class="col-sm-8">	
-                                <h:inputText  id="endDate" value="#{reservationController.event.endDate}"  class="endDate_1 form-control"  title="#{bundle.CreateReservationTitle_endDate}">
+                                <h:inputText  id="endDate" value="#{reservationController.dateFin}"  class="endDate_1 form-control"  title="#{bundle.CreateReservationTitle_endDate}">
                                 </h:inputText>
                             </div>
                         </div>
