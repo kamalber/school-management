@@ -35,6 +35,11 @@ public class Reservation implements Serializable {
     private Date endDate;
     private String description;
     private String color;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date periodiciteDateDebut;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date periodiciteDateFin;
+    private String periodiciteDays;
     private ReservationType type;
     @ManyToOne
     private Module module = new Module();
@@ -44,6 +49,32 @@ public class Reservation implements Serializable {
     public enum ReservationType {
 
         CC, TD, COURS, TP
+    }
+
+    public String getPeriodiciteDays() {
+        return periodiciteDays;
+    }
+
+    public void setPeriodiciteDays(String periodiciteDays) {
+        this.periodiciteDays = periodiciteDays;
+    }
+
+  
+
+    public Date getPeriodiciteDateDebut() {
+        return periodiciteDateDebut;
+    }
+
+    public void setPeriodiciteDateDebut(Date periodiciteDateDebut) {
+        this.periodiciteDateDebut = periodiciteDateDebut;
+    }
+
+    public Date getPeriodiciteDateFin() {
+        return periodiciteDateFin;
+    }
+
+    public void setPeriodiciteDateFin(Date periodiciteDateFin) {
+        this.periodiciteDateFin = periodiciteDateFin;
     }
 
     public Date getStartDate() {
