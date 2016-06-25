@@ -583,17 +583,17 @@ body {
 
 
 
-.CC .fc-event-skin {
-    background : #FF0000;
+.CC .fc-event-inner {
+    background :tomato;
 }
 
-.TD .fc-event-skin {
-    background : #90EE90;
+.TD .fc-event-inner {
+    background : #00dd1c;
 }
-.COURS .fc-event-skin {
-    background : #26C4EC;
+.COURS .fc-event-inner {
+    background : space;
 }
-.TP .fc-event-skin {
+.TP .fc-event-inner {
     background : #F9A41E;
 }
 /* Responsive CSS */

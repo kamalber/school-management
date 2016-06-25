@@ -6,6 +6,7 @@
 package dao;
 
 import bean.Formation;
+import bean.Module;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,9 @@ public class FormationFacade extends AbstractFacade<Formation> {
 
     public FormationFacade() {
         super(Formation.class);
+    }
+    public Formation findbyModule(Module module){
+        return (Formation) em.createQuery("select m from Formation m  JOIN m.modules").getSingleResult();
     }
     
 }

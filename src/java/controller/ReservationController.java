@@ -1,17 +1,19 @@
 package controller;
 
+import bean.Module;
 import bean.Reservation;
 import bean.Reservation.ReservationType;
 import bean.Salle;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
+import dao.ModuleFacade;
 import dao.ReservationFacade;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -37,6 +39,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
+//import
 
 @Named("reservationController")
 @SessionScoped
@@ -48,6 +51,7 @@ public class ReservationController implements Serializable {
     private String typeReservation;
     private String dateDebut;
     private String dateFin;
+    private boolean isPeriodicite;
 
     // calnedar 
     private ScheduleModel eventModel;
@@ -55,16 +59,30 @@ public class ReservationController implements Serializable {
     private ScheduleModel lazyEventModel;
 
     private ScheduleEvent event = new DefaultScheduleEvent();
+    private ScheduleEvent updatedEvent = new DefaultScheduleEvent();
+
     List<Reservation> reservations = null;
+    private ArrayList<String> days = new ArrayList<>();
+    @EJB
+    ModuleFacade moduleFacade;
     @EJB
     private dao.ReservationFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     // calendar events 
-    public void deletEvent(ActionEvent actionEvent){
+    public void deletEvent(ActionEvent actionEvent) {
         delete();
     }
+
+    public ScheduleEvent getUpdatedEvent() {
+        return updatedEvent;
+    }
+
+    public void setUpdatedEvent(ScheduleEvent updatedEvent) {
+        this.updatedEvent = updatedEvent;
+    }
+
     public void addEvent(ActionEvent actionEvent) {
         System.out.println("controller.ReservationController.addEvent() 1");
         if (event.getId() == null) {
@@ -77,7 +95,13 @@ public class ReservationController implements Serializable {
                 current.setType(ReservationType.valueOf(typeReservation));
                 current.setDescription(event.getTitle());
                 current.getSalle().add(currentSalle);
+                String fullTitle = event.getTitle() + "</br>" + " salle : " + current.getSalle().get(0).getNumero()
+                        + "</br> departement : " + current.getSalle().get(0).getDepartement().getNom()
+                        + "</br> pour un " + current.getType();
+
                 getFacade().create(current);
+                reservations.add(current);
+                init();
             } catch (Exception e) {
                 JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
 
@@ -104,6 +128,35 @@ public class ReservationController implements Serializable {
 
         event = new DefaultScheduleEvent();
     }
+    //ajax methode 
+
+    public void addDaysToPeridicite(String day) {
+        String currendtDays = current.getPeriodiciteDays() + "n";
+        if (!currendtDays.contains(day)) {
+            current.setPeriodiciteDays(current.getPeriodiciteDays() + "," + day);
+            System.out.println("dddddddddddddddddyyyyyyyyy " + day);
+        }
+    }
+
+    public void checkSalleavailability() {
+        int formationNbrEtudiants=0;
+        for (Module m : moduleFacade.findAll()) {
+            if (m.getId() == current.getId()) {
+                formationNbrEtudiants = m.getFormation().getNombreEtudiants();
+            }
+            if (formationNbrEtudiants > currentSalle.getNbr_place()) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "erreur", "le nombre d'etudiants est supérieur au nombre de places !!");
+                addMessage(message);
+            }
+        }
+    }
+
+    public void createReservationPeriodicite(Reservation reservation) {
+        eventModel.addEvent(event);
+    }
+
+    public void chekPeriodicite() {
+    }
 
     public void addd() {
         System.out.println("controller.ReservationController.addEvent() 2");
@@ -121,12 +174,12 @@ public class ReservationController implements Serializable {
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
-        event = null;
+
         event = (ScheduleEvent) selectEvent.getObject();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
-        event=null;
+        System.out.println((Date) selectEvent.getObject());
         event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
@@ -140,6 +193,7 @@ public class ReservationController implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
 
         addMessage(message);
+
     }
 
     private void addMessage(FacesMessage message) {
@@ -239,14 +293,26 @@ public class ReservationController implements Serializable {
             current.setEndDate(new Date(dateFin));
             current.setType(ReservationType.valueOf(typeReservation));
             current.getSalle().add(currentSalle);
+            reservations.add(current);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReservationCreated"));
             init();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReservationCreated"));
+
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }
+
+    public String dateConverter(Date date1) {
+        String l = "";
+        if (date1 != null) {
+            SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatHoure = new SimpleDateFormat("HH:mm");
+            l = "Le  " + formatDay.format(date1) + " à " + formatHoure.format(date1);
+        }
+        return l;
     }
 
     public String prepareEdit() {
@@ -284,9 +350,10 @@ public class ReservationController implements Serializable {
         }
 
     }
-    public void annuler(){
-        current=new Reservation();
-        event= new DefaultScheduleEvent();
+
+    public void annuler() {
+        System.out.println("anuller()");
+        System.out.println("return ");
     }
 
     public String destroyAndView() {
@@ -305,6 +372,7 @@ public class ReservationController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
+            init();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ReservationDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -405,6 +473,14 @@ public class ReservationController implements Serializable {
 
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @PostConstruct
     public void init() {
         reservations = ejbFacade.findAll();
@@ -416,8 +492,12 @@ public class ReservationController implements Serializable {
             scheduleEvent.setTitle(res.getDescription());
             scheduleEvent.setStartDate(res.getStartDate());
             scheduleEvent.setEndDate(res.getEndDate());
-            scheduleEvent.setStyleClass("TD");
+            scheduleEvent.setStyleClass(res.getType().toString());
             scheduleEvent.setData(res);
+            String fullTitle = res.getDescription() + "" + " dans la  salle : " + res.getSalle().get(0).getNumero()
+                    + "/departement : " + res.getSalle().get(0).getDepartement().getNom()
+                    + " pour un " + res.getType();
+            scheduleEvent.setTitle(fullTitle);
             eventModel.addEvent(scheduleEvent);
         }
 //        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
@@ -475,6 +555,14 @@ public class ReservationController implements Serializable {
         t.set(Calendar.HOUR, 8);
 
         return t.getTime();
+    }
+
+    public boolean isIsPeriodicite() {
+        return isPeriodicite;
+    }
+
+    public void setIsPeriodicite(boolean isPeriodicite) {
+        this.isPeriodicite = isPeriodicite;
     }
 
     private Date previousDay11Pm() {

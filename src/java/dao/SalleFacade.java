@@ -6,6 +6,8 @@
 package dao;
 
 import bean.Salle;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +30,8 @@ public class SalleFacade extends AbstractFacade<Salle> {
     public SalleFacade() {
         super(Salle.class);
     }
-    
+    public List<Salle> getAllNotReservedBetwenTowDates(){
+        List<Salle> salles=new ArrayList<>();
+        return salles;
+    }
 }

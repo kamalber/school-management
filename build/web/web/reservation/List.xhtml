@@ -6,9 +6,9 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template/layout.xhtml">
-       
-      
-                    <ui:define name="content">
+
+
+        <ui:define name="content">
             <div class=""></div>
             <div class="col-md-10">
                 <div class="content-box-header">
@@ -21,70 +21,76 @@
                 </div>
                 <div class="content-box-large box-with-header">
 
-            <h:form styleClass="jsfcrud_list_form tab-content form-horizontal">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListReservationEmpty}" rendered="#{reservationController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{reservationController.items.rowCount > 0}">
-                    <h:outputText value="#{reservationController.pagination.pageFirstItem + 1}..#{reservationController.pagination.pageLastItem + 1}/#{reservationController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{reservationController.previous}" value="#{bundle.Previous} #{reservationController.pagination.pageSize}" rendered="#{reservationController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{reservationController.next}" value="#{bundle.Next} #{reservationController.pagination.pageSize}" rendered="#{reservationController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable styleClass="example table table-striped table-bordered dataTable" id="example" value="#{reservationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_startDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.startDate}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_endDate}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.endDate}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_type}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.type}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_module}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.module.intitule}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListReservationTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{reservationController.prepareEdit}" value="" ><span class="glyphicon glyphicon-edit "></span> </h:commandLink>
-                            <h:outputText value=" _  "/> 
-                           <h:commandLink action="#{reservationController.destroy}"><span class="glyphicon glyphicon-trash "></span> </h:commandLink>
+                    <h:form styleClass="jsfcrud_list_form tab-content form-horizontal">
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <h:outputText escape="false" value="#{bundle.ListReservationEmpty}" rendered="#{reservationController.items.rowCount == 0}"/>
+                        <h:panelGroup rendered="#{reservationController.items.rowCount > 0}">
+                            <h:outputText value="#{reservationController.pagination.pageFirstItem + 1}..#{reservationController.pagination.pageLastItem + 1}/#{reservationController.pagination.itemsCount}"/>&nbsp;
+                            <h:commandLink action="#{reservationController.previous}" value="#{bundle.Previous} #{reservationController.pagination.pageSize}" rendered="#{reservationController.pagination.hasPreviousPage}"/>&nbsp;
+                            <h:commandLink action="#{reservationController.next}" value="#{bundle.Next} #{reservationController.pagination.pageSize}" rendered="#{reservationController.pagination.hasNextPage}"/>&nbsp;
+                           
+                            
+                          <h:dataTable value="#{reservationController.reservations}" var="item" styleClass="example table table-striped table-bordered dataTable" id="example">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="StartDate"/>
+                                    </f:facet>
+                                    <h:outputText value="#{reservationController.dateConverter(item.startDate)}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                              
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="EndDate"/>
+                                    </f:facet>
+                                    <h:outputText value="#{reservationController.dateConverter(item.endDate)}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Description"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.description}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.type}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Module"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.module.intitule}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}"/>
+                                </h:column>
+                            </h:dataTable>   
+                            
+                            
+                        </h:panelGroup>
+                        <br />
+                        <h:commandLink action="#{reservationController.prepareCreate}" value=" ajouter une nouvelle reservation"/>
+                        <br />
+                        <br />
+                        <h:link outcome="/index" value="#{bundle.ListReservationIndexLink}"/>
+                    </h:form>
 
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{reservationController.prepareCreate}" value=" ajouter une nouvelle reservation"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListReservationIndexLink}"/>
-            </h:form>
-                    </div></div>
+
+                    <!-- list #-->
+              
+
+                    <!--end list-->
+                </div></div>
         </ui:define>
     </ui:composition>
 
