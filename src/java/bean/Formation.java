@@ -104,7 +104,7 @@ public class Formation implements Serializable {
 
     @Override
     public String toString() {
-        return "intitule : "+this.nom+" , departement : "+this.departement.getNom()+ "nombre d'etudiants : "+ this.nombreEtudiants;
+        return "intitule : "+this.nom+" , departement : "+this.departement.getNom()+ "nbr d'etudiants : "+ this.nombreEtudiants;
     }
     
 }
