@@ -30,8 +30,10 @@
 
                         <h:panelGrid columnClasses="value">
                             <h3 style="margin-top: 0">Réservation  calendrier</h3>
-                            <p:schedule  id="schedule"    value="#{reservationController.eventModel}" widgetVar="myschedule" timeZone="GMT+2" 
-                                         resizable="true"  slotMinutes="15" firstHour="8" locale="fr" timeFormat="HH:mm" axisFormat="HH:mm" 
+                            <p:schedule  id="schedule"    value="#{reservationController.eventModel}"
+                                         widgetVar="myschedule" timeZone="GMT+2" 
+                                         resizable="true"  slotMinutes="15" firstHour="8" locale="fr"
+                                         timeFormat="HH:mm" axisFormat="HH:mm" 
                                          view="agendaWeek" minTime="8" maxTime="18" >
                                 <p:ajax event="dateSelect" listener="#{reservationController.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                                 <p:ajax event="eventSelect" listener="#{reservationController.onEventSelect}" update="eventDetails,eventDetailsActions" oncomplete="PF('eventDialogActions').show();" />
@@ -91,8 +93,62 @@
                                                 <div class="col-sm-10">
                                                     <h:selectOneMenu id="salle" class="form-control"  required="true" value="#{reservationController.currentSalle}" title="#{bundle.CreateReservationTitle_salle}" >
                                                         <f:selectItems  value="#{salleController.itemsAvailableSelectOne}"/>
+                                                        <p:ajax listener="#{reservationController.checkSalleavailability()}" update="messages" />
+
                                                     </h:selectOneMenu>
-                                                </div></div>                
+                                                </div></div>   
+                                            <div class="form-group">
+                                                <h:outputLabel value="périodicité" for="periodicite"  class="col-sm-2 control-label" ></h:outputLabel>
+                                                <div class="col-sm-10">
+                                                    <input  type="checkbox" name="periodicite" id="peridoCheck" value="périodicité" checked="false" class="checkbox" onchange="showPeriodicite()"/>
+                                                </div></div> 
+
+                                            <!--periodicite--> 
+
+                                            <div id="perido">
+
+                                                <div class="form-group">
+                                                    <h:outputLabel value="de "  class="col-sm-2 control-label" for="dateDebutPeriod"  ></h:outputLabel>
+                                                    <div class="col-sm-10">	
+                                                        <p:calendar  id="dateDebutPeriod" value="#{reservationController.selected.periodiciteDateDebut}" size="57"  styleClass=""  timeZone="GMT+2" pattern="dd/MM/yyyy"></p:calendar>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel value="à "  class="col-sm-2 control-label" for="dateFinPeriod"  ></h:outputLabel>
+                                                    <div class="col-sm-10">	
+                                                        <p:calendar  id="dateFinPeriod" value="#{reservationController.selected.periodiciteDateFin}" size="57"  styleClass=""  timeZone="GMT+2" pattern="dd/MM/yyyy"></p:calendar>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <h:outputLabel value="jours "  class="col-sm-2 control-label" for="jours"  ></h:outputLabel>
+                                                    <div class="col-sm-10">	
+                                                        <h:outputLabel value="lun"  class="col-sm-2 control-label" for="lundi"  ></h:outputLabel>
+                                                        <p:selectBooleanCheckbox value="lundi">
+                                                            <p:ajax id="lundi" update="" listener="#{reservationController.addDaysToPeridicite('lundi')}" />
+                                                        </p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox value="mardi">
+                                                            <p:ajax update="" listener="#{reservationController.addDaysToPeridicite('mardi')}" />
+                                                        </p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox value="mercredi">
+                                                            <p:ajax update="" listener="#{reservationController.addDaysToPeridicite('mercredi')}" />
+                                                        </p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox value="jeudi">
+                                                            <p:ajax update="" listener="#{reservationController.addDaysToPeridicite('jeudi')}" />
+                                                        </p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox value="vendredi">
+                                                            <p:ajax update="" listener="#{reservationController.addDaysToPeridicite('vendredi')}" />
+                                                        </p:selectBooleanCheckbox>
+                                                        <p:selectBooleanCheckbox value="samedi">
+                                                            <p:ajax update="" listener="#{reservationController.addDaysToPeridicite('samedi')}" />
+                                                        </p:selectBooleanCheckbox>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <!--end periodicite-->
+
+                                            </div>                                           
                                             <div class="form-group center-block center">
                                                 <div class="row-fluid center-block">
                                                     <div class="span4 offset4 text-center">
@@ -106,6 +162,10 @@
                                         </div></div></div></h:panelGroup>
                         </p:dialog>
 
+
+                        <!--ffff-->
+
+                        <!--nnn-->
                         <p:dialog widgetVar="eventDialogActions" header="actions" showEffect="clip" hideEffect="clip">
                             <h:panelGroup class="row"  id="eventDetailsActions" >
 
@@ -117,19 +177,19 @@
                                             <div class="form-group">
                                                 <h:outputLabel value="titre"  class="col-sm-2 control-label" for="titre" ></h:outputLabel>
                                                 <div class="col-sm-10">
-                                                    <h:outputLabel id="titre" value="#{reservationController.event.title}" class="form-control"></h:outputLabel>
+                                                    <h:outputText id="titre"  value="#{reservationController.event.title}"  class="form-control textarea"></h:outputText>
                                                 </div></div>
                                             <div class="form-group">
                                                 <h:outputLabel value="#{bundle.CreateReservationLabel_startDate}"   class="col-sm-2 control-label" for="startDate"  ></h:outputLabel>
                                                 <div class="col-sm-10">		
-                                                    <h:outputLabel value="#{reservationController.event.startDate}" class="form-control"></h:outputLabel>
+                                                    <h:outputLabel value="#{reservationController.dateDebutConverter()}" class="form-control"></h:outputLabel>
 
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <h:outputLabel value="#{bundle.CreateReservationLabel_endDate}"  class="col-sm-2 control-label" for="endDate"  ></h:outputLabel>
                                                 <div class="col-sm-10">	
-                                                    <h:outputLabel value="#{reservationController.event.endDate}" class="form-control"></h:outputLabel>
+                                                    <h:outputLabel value="#{reservationController.dateFinConverter()}" class="form-control"></h:outputLabel>
 
                                                 </div>
                                             </div>
@@ -140,7 +200,8 @@
                             <h:panelGrid columns="4">  
                                 <p:commandButton id="update"  icon="ui-icon-disk"   value="Modifier" styleClass="btn btn-info" oncomplete="PF('eventDialogActions').hide();PF('eventDialog').show()" ></p:commandButton>
                                 <p:commandButton id="delete" icon="ui-icon-star"   value="Supprimer" action="#{reservationController.delete()}" oncomplete="PF('eventDialogActions').hide()"  styleClass="btn btn-default"  ></p:commandButton>
-                                <p:commandButton id="cancel" icon="ui-icon-cancel"  value="Annuler" actionListener="#{reservationController.annuler()}" oncomplete="PF('eventDialogActions').hide()" styleClass="btn btn-google-plus"  ></p:commandButton>
+                                <p:commandButton id="cancel" icon="ui-icon-cancel"  value="Annuler" action="#{reservationController.annuler()}" oncomplete="PF('eventDialogActions').hide()" styleClass="btn btn-google-plus"  >
+                                    <f:ajax execute="" listener="#{reservationController.annuler()}" /></p:commandButton>
 
                             </h:panelGrid>
 
@@ -178,6 +239,14 @@
                             day: 'Jour',
                             allDayText: 'Toute la journée'
                         };
+
+
+
+
+                        function showPeriodicite() {
+                            $("#perido").toggle();
+                        }
+
 
                     </script>
                     <style type="text/css">
