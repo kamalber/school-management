@@ -98,7 +98,7 @@ public class Module implements Serializable {
 
     @Override
     public String toString() {
-        return "intitule : "+intitule +" ,  formation : "+formation.getNom();
+        return "intitule : "+intitule +" ,  formation : "+formation.getNom() +" , nombre d'etudiants : "+this.formation.getNombreEtudiants();
     }
 
 }
