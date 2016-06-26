@@ -110,7 +110,7 @@ public class Departement implements Serializable {
 
     @Override
     public String toString() {
-        return "Nom : "+nom;
+        return " : " +nom;
     }
 
 }

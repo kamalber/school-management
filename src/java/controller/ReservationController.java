@@ -141,7 +141,7 @@ public class ReservationController implements Serializable {
     public void checkSalleavailability() {
         int formationNbrEtudiants=0;
         for (Module m : moduleFacade.findAll()) {
-            if (m.getId() == current.getId()) {
+            if (m.getId() == current.getModule().getId()) {
                 formationNbrEtudiants = m.getFormation().getNombreEtudiants();
             }
             if (formationNbrEtudiants > currentSalle.getNbr_place()) {
