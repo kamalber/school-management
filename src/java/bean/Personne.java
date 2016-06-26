@@ -96,7 +96,7 @@ public class Personne implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Personne[ id=" + id + " ]";
+        return "Nom : "+nom+" , prenom : "+prenom;
     }
     
 }
