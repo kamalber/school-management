@@ -3,7 +3,7 @@ application that manage salle reservation for university .
 required : 
           glassfish server -> EJB 3;
           java 8;
-          MSQL database;-
+          MySQL database;-
 frameworks:
           JSF;
           JPA/eclipselink;
