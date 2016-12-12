@@ -72,7 +72,18 @@ public class ReservationController implements Serializable {
 
     // calendar events 
     public void deletEvent(ActionEvent actionEvent) {
-        delete();
+        System.out.println("delet");
+        System.out.println((Reservation) event.getData());
+        Reservation eventRes = (Reservation) event.getData();
+        for (int i = 0; i < reservations.size(); i++) {
+            if (reservations.get(i).getId() == eventRes.getId()) {
+                eventModel.deleteEvent(event);
+                reservations.remove(current);
+                ejbFacade.remove(current);
+                System.out.println("deleted");
+            }
+        }
+
     }
 
     public ScheduleEvent getUpdatedEvent() {
@@ -139,12 +150,15 @@ public class ReservationController implements Serializable {
     }
 
     public void checkSalleavailability() {
-        int formationNbrEtudiants=0;
+        System.out.println("chek free" + current.getModule().getId());
+        int formationNbrEtudiants = 0;
         for (Module m : moduleFacade.findAll()) {
             if (m.getId() == current.getModule().getId()) {
                 formationNbrEtudiants = m.getFormation().getNombreEtudiants();
+                System.out.println("chek if id");
             }
             if (formationNbrEtudiants > currentSalle.getNbr_place()) {
+                System.out.println("chek if nbr");
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "erreur", "le nombre d'etudiants est supérieur au nombre de places !!");
                 addMessage(message);
             }
@@ -344,8 +358,14 @@ public class ReservationController implements Serializable {
     public void delete() {
         System.out.println("delet");
         for (int i = 0; i < reservations.size(); i++) {
-            if (reservations.get(i).getId() == current.getId()) {
+            if (reservations.get(i).getId() == Integer.parseInt(event.getId())) {
                 eventModel.deleteEvent(event);
+                reservations.remove(current);
+                ejbFacade.remove(current);
+              
+                System.out.println("deleted");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "réservation ", "réservation supprimeée !!");
+                addMessage(message);
             }
         }
 
@@ -488,6 +508,7 @@ public class ReservationController implements Serializable {
 
         for (Reservation res : reservations) {
             DefaultScheduleEvent scheduleEvent = new DefaultScheduleEvent();
+
             scheduleEvent.setDescription(res.getDescription());
             scheduleEvent.setTitle(res.getDescription());
             scheduleEvent.setStartDate(res.getStartDate());

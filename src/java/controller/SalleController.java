@@ -6,7 +6,9 @@ import controller.util.PaginationHelper;
 import dao.SalleFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -24,12 +26,19 @@ public class SalleController implements Serializable {
 
     private Salle current;
     private DataModel items = null;
+    private List<Salle> salles;
     @EJB
     private dao.SalleFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public SalleController() {
+        
+    }
+
+    @PostConstruct
+    public void init() {
+        salles = ejbFacade.findAll();
     }
 
     public Salle getSelected() {
@@ -82,6 +91,7 @@ public class SalleController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
+            salles.add(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SalleCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -231,5 +241,14 @@ public class SalleController implements Serializable {
         }
 
     }
+
+    public List<Salle> getSalles() {
+        return salles;
+    }
+
+    public void setSalles(List<Salle> salles) {
+        this.salles = salles;
+    }
+    
 
 }
