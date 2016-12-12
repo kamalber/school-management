@@ -32,7 +32,7 @@
                             <h:outputText value="#{salleController.pagination.pageFirstItem + 1}..#{salleController.pagination.pageLastItem + 1}/#{salleController.pagination.itemsCount}"/>&nbsp;
                             <h:commandLink action="#{salleController.previous}" value="#{bundle.Previous} #{salleController.pagination.pageSize}" rendered="#{salleController.pagination.hasPreviousPage}"/>&nbsp;
                             <h:commandLink action="#{salleController.next}" value="#{bundle.Next} #{salleController.pagination.pageSize}" rendered="#{salleController.pagination.hasNextPage}"/>&nbsp;
-                            <h:dataTable value="#{salleController.items}"  styleClass="example table table-striped table-bordered dataTable" id="example" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                            <h:dataTable value="#{salleController.salles}"  styleClass="example table table-striped table-bordered dataTable" id="example" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListSalleTitle_id}"/>

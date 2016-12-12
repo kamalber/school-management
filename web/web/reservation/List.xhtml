@@ -62,6 +62,18 @@
                                     </f:facet>
                                     <h:outputText value="#{item.type}"/>
                                 </h:column>
+                                 <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Formation"/>
+                                    </f:facet>
+                                     <h:outputText value="#{item.module.formation.nom}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Departement"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.module.formation.departement.nom}"/>
+                                </h:column>
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Module"/>
