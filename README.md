@@ -1,4 +1,4 @@
-# salle-reservation-java-EE-
+# scholl managment application
 application that manage salle reservation for university .
 required : 
           glassfish server -> EJB 3;
